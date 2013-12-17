@@ -22,7 +22,7 @@ int main(int argc , char **argv){
 		typedef vector<fila> matriz;
 		toolbox *tb = toolbox::instance();
 		tb->clockstart();
-		tb->readparamfile("./src/setup.conf");
+		tb->readparamfile("./setup.conf");
 		list<GeneticAlgorithm*> niches;
 		list<GeneticAlgorithm*>::iterator it_niches;
 		list<GeneticAlgorithm*>::iterator paux_niches;
@@ -44,7 +44,7 @@ int main(int argc , char **argv){
 		tb->storeVariable("date", date_experiment);
 
 		string IDExp = tb->pval_string("IDExp");
-		ofstream salida_main (("./Results/"+ IDExp + "_fitness"+"("+buffer+")"+".dat").c_str(),ofstream::out);
+		ofstream salida_main (("./Results/"+tb->pval_string("problemType")+"/"+ IDExp + "_fitness"+"("+buffer+")"+".dat").c_str(),ofstream::out);
 		if(salida_main){
 			cout << "se ha creado el archivo numcolonias.dat" << endl;
 		}else{
@@ -80,7 +80,7 @@ int main(int argc , char **argv){
 			salida_main << endl;
 		}
 
-		ofstream resultado (("./Results/"+ IDExp + "_results"+"("+buffer+")"+".dat").c_str(),ofstream::out);
+		ofstream resultado (("./Results/"+tb->pval_string("problemType")+"/"+ IDExp + "_results"+"("+buffer+")"+".dat").c_str(),ofstream::out);
 		if(resultado){
 			cout << "se ha creado el archivo results.dat" << endl;
 		}else{
