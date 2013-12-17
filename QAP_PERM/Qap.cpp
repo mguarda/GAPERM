@@ -36,7 +36,7 @@ double Qap::CalcularFitness(Solution *sol) {
 	// una vez terminado el manejo de archivo de datos de entrada
 
 	vector<int> values_ = *(vector<int>*) sol->getValues();
-	int size = values_.size();
+//	int size = values_.size();
 
 	double cost;
 	cost = 0.0;
