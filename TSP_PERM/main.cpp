@@ -75,7 +75,7 @@ int main(int argc , char **argv){
 					b_fitness = (*it_niches)->get_chrom_max_fitness()->getFitness();
 					paux_niches = it_niches;
 				}
-			salida_main << (i+1) << " ";
+			salida_main << (i+1) << " | ";
 			(*paux_niches)->get_chrom_max_fitness()->show_solution(salida_main);
 			salida_main << endl;
 		}
@@ -87,8 +87,8 @@ int main(int argc , char **argv){
 			cout << "Error al crear el archivo results.dat" << endl;
 			exit(0);
 		}
-
-		resultado << "Fitness  Costo  Solucion" << endl;
+		resultado.imbue(mylocale);
+		resultado << "Fitness | Costo | Solucion" << endl;
 		for(it_niches = niches.begin(); it_niches != niches.end();it_niches++){
 			(*it_niches)->get_chrom_max_fitness()->show_solution(resultado);
 			/*resultado << (*it_niches)->get_chrom_max_fitness()->getFitness() << " ";
@@ -96,8 +96,10 @@ int main(int argc , char **argv){
 			resultado << endl;
 		}
 
-		double seg = tb->clockstop()/1000000;
-		cout << "el tiempo de ejecucion ha sido de " << seg << "seg " << endl;
+		double seg = tb->clockstop() / 1000000;
+		time_t seconds(seg);
+		tm *p = localtime(&seconds);
+		cout << "el tiempo de ejecucion ha sido de " << p->tm_min << " min "<< p->tm_sec << "seg " << endl;
 		salida_main.close();
 		resultado.close();
 	}else{

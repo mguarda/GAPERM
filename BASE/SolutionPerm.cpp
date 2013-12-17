@@ -173,7 +173,7 @@ Solution* SolutionPerm::ExtendSolution( double delta ){
 
 /// @param out_distill Nombre del archivo que se agregarán los datos más relevantes del objeto de tipo Solution, tales como: las coordenadas de éste y su fitness
 void SolutionPerm::show_solution( ofstream& out_distill ){
-	out_distill << fitness << "  " << 100000 / (fitness) << "  ";
+	out_distill << fitness << " | " << 100000 / (fitness) << " | ";
 	for (int j = 0; j < (int) dimension; j++) {
 		out_distill << values[j] << " ";
 	}
