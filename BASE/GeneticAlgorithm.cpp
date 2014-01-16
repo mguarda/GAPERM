@@ -45,13 +45,13 @@ void GeneticAlgorithm::nextPopulation(){
 	double secondbest = 0;
 	list<Solution*>::iterator it1;
 	list<Solution*>::iterator it2;
-//	cout << "Obteniendo el egundp mejor chromosoma ..." << endl;
-	for(it1 = pop.begin();it1!= pop.end();it1++)
+//	cout << "Obteniendo el segund mejor chromosoma ..." << endl;
+/*	for(it1 = pop.begin();it1!= pop.end();it1++)
 		if((*it1)->getFitness()>secondbest && (*it1)->getFitness()<bestChromfit){
 			it2 = it1;
 			secondbest =(*it1)->getFitness();
 		}
-	newPopulation.push_back(*it2);
+	newPopulation.push_back(*it2); */
 
 //	cout << "Elitismo aplicado!" << endl;
 //	cout << "Inciando proceso de cruzamiento ..." << endl;
@@ -98,7 +98,9 @@ void GeneticAlgorithm::nextPopulation(){
 //	cout << "Nueva poblacion obtenida!" << endl;
 //	delete(aux);
 }
-
+/**
+* Método de Cruzamiento OX
+*/
 vector<int> GeneticAlgorithm::crossover(Solution * solution1, Solution * solution2){
 
 //	cout << "Iniciando cruzamiento ..." << endl;

@@ -13,6 +13,7 @@
 #include "problem.h"
 #include "toolbox.h"
 #include <locale>
+#include <time.h>
 using namespace std;
 
 int main(int argc , char **argv){
@@ -98,8 +99,8 @@ int main(int argc , char **argv){
 
 		double seg = tb->clockstop()/1000000;
 		time_t seconds(seg);
-		tm *p = localtime(&seconds);
-		cout << "el tiempo de ejecucion ha sido de " << p->tm_min << " min " << p->tm_sec << "seg " << endl;
+		tm *pt = localtime(&seconds);
+		cout << "el tiempo de ejecucion ha sido de " << pt->tm_min << " min " << pt->tm_sec << "seg " << endl;
 		salida_main.close();
 		resultado.close();
 	}else{
