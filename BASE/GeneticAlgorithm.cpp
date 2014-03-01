@@ -31,20 +31,33 @@ void GeneticAlgorithm::setName(string name){
 	this->name = name;
 }
 
+bool myfunction (Solution* i,Solution*  j) { return (i->getFitness()<j->getFitness()); }
+
 void GeneticAlgorithm::nextPopulation(){
 
 	Problem *p = Problem::instance();
 	toolbox *tb = toolbox::instance();
 	list<Solution*> newPopulation;
 //	list<Solution*> *aux;
-	/*we gonna use elitism with two chromosones*/
+	/*we gonna use elitism */
 //	cout << "Obteniendo el primer mejor chromosoma ..." <<endl;
-	Solution * elite = get_chrom_max_fitness();
-	newPopulation.push_back(elite);
-	double bestChromfit = elite->getFitness();
-	double secondbest = 0;
+//	Solution * elite = get_chrom_max_fitness();
+//	newPopulation.push_back(elite);
+//	double bestChromfit = elite->getFitness();
+//	double secondbest = 0;
 	list<Solution*>::iterator it1;
 	list<Solution*>::iterator it2;
+	pop.sort(myfunction);
+	pop.reverse();
+	int elitism = tb->pval_double("elitism")*(int)pop.size();
+	int i = 0;
+	for(it1 = pop.begin();it1!= pop.end();it1++){
+		if(i < elitism){
+			newPopulation.push_back(*it1);
+			i++;
+		}
+	}
+
 //	cout << "Obteniendo el segund mejor chromosoma ..." << endl;
 /*	for(it1 = pop.begin();it1!= pop.end();it1++)
 		if((*it1)->getFitness()>secondbest && (*it1)->getFitness()<bestChromfit){
