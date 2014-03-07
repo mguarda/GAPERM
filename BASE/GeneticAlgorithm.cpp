@@ -31,7 +31,7 @@ void GeneticAlgorithm::setName(string name){
 	this->name = name;
 }
 
-bool myfunction (Solution* i,Solution*  j) { return (i->getFitness()<j->getFitness()); }
+bool myfunction (Solution* i,Solution*  j) { return (i->getFitness()>j->getFitness()); }
 
 void GeneticAlgorithm::nextPopulation(){
 
@@ -47,9 +47,26 @@ void GeneticAlgorithm::nextPopulation(){
 //	double secondbest = 0;
 	list<Solution*>::iterator it1;
 	list<Solution*>::iterator it2;
+
+	for(it1=pop.begin(); it1!=pop.end();it1++){
+		cout << (*it1)->getFitness() << " " ;
+	}
+	cout << endl;
+	cout << "ordenando de mayor a menor" << endl;
 	pop.sort(myfunction);
+	for(it1=pop.begin(); it1!=pop.end();it1++){
+			cout << (*it1)->getFitness() << " " ;
+		}
+	cout << endl;
+/*
 	pop.reverse();
-	int elitism = tb->pval_double("elitism")*(int)pop.size();
+	for(it1=pop.begin(); it1!=pop.end();it1++){
+			cout << (*it1)->getFitness() << " " ;
+		}
+	cout << endl;*/
+
+	double elitism = tb->pval_double("ELITISM")*n_pop;
+	cout << "Elitismo = " << elitism << endl;
 	int i = 0;
 	for(it1 = pop.begin();it1!= pop.end();it1++){
 		if(i < elitism){
@@ -57,7 +74,12 @@ void GeneticAlgorithm::nextPopulation(){
 			i++;
 		}
 	}
+	cout << "agregados a nueva poblacion " << newPopulation.size() << endl;
 
+	for(it2=newPopulation.begin(); it2!=newPopulation.end();it2++){
+		cout << (*it2)->getFitness() << " " ;
+	}
+	cout << endl;
 //	cout << "Obteniendo el segund mejor chromosoma ..." << endl;
 /*	for(it1 = pop.begin();it1!= pop.end();it1++)
 		if((*it1)->getFitness()>secondbest && (*it1)->getFitness()<bestChromfit){
