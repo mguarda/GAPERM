@@ -48,7 +48,7 @@ double Qap::CalcularFitness(Solution *sol) {
 		}
 	}
 
-	return 1 / cost;
+	return (1/cost)*100000;
 }
 
 /**
