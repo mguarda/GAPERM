@@ -45,7 +45,7 @@ int main(int argc , char **argv){
 		tb->storeVariable("date", date_experiment);
 
 		string IDExp = tb->pval_string("IDExp");
-		ofstream salida_main (("./Results/"+tb->pval_string("problemType")+"/"+ IDExp + "_fitness"+"("+buffer+")"+".dat").c_str(),ofstream::out);
+		ofstream salida_main (("./Results/"+tb->pval_string("problemType")+"/"+ IDExp + "_fitness"+"("+buffer+")"+".csv").c_str(),ofstream::out);
 		if(salida_main){
 			cout << "se ha creado el archivo numcolonias.dat" << endl;
 		}else{
@@ -61,7 +61,7 @@ int main(int argc , char **argv){
 		int n_generations = tb->pval_int("MAXGEN");
 		list<Solution*> bestChromosones;
 		for(int i=0; i< n_generations;i++){
-			cout << "===============Generacion Nº " << i+1 << "=================" <<endl;
+//			cout << "===============Generacion Nº " << i+1 << "=================" <<endl;
 			for(it_niches = niches.begin(); it_niches != niches.end();it_niches++){
 //				cout << "--------------------"<<(*it_niches)->name <<"--------------------" << endl;
 //				cout << "Generando nueva poblacion " << endl;
