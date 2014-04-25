@@ -33,6 +33,7 @@ public:
 
 	Solution * get_chrom_max_fitness();
 	void nextPopulation();
+	list<Solution*> get_chromosones();
 };
 
 #endif /* NICH_H_ */

@@ -303,3 +303,12 @@ Solution* GeneticAlgorithm::get_chrom_max_fitness(){
 		}
 	return *best;
 }
+
+list<Solution*> GeneticAlgorithm::get_chromosones(){
+	list<Solution*> soluciones;
+	list<Solution*>::iterator it;
+	for(it=pop.begin();it!=pop.end();it++){
+		soluciones.push_back(*it);
+	}
+	return soluciones;
+}

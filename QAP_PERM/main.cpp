@@ -45,15 +45,17 @@ int main(int argc , char **argv){
 		tb->storeVariable("date", date_experiment);
 
 		string IDExp = tb->pval_string("IDExp");
-		ofstream salida_main (("./Results/"+tb->pval_string("problemType")+"/"+ IDExp + "_fitness"+"("+buffer+")"+".csv").c_str(),ofstream::out);
-		if(salida_main){
+		ofstream salida_fitness (("./Results/"+tb->pval_string("problemType")+"/"+ IDExp + "_fitness"+"("+buffer+")"+".csv").c_str(),ofstream::out);
+		if(salida_fitness){
 			cout << "se ha creado el archivo numcolonias.dat" << endl;
 		}else{
 			cout << "Error al crear el archivo numcolonias.dat" << endl;
 			exit(0);
 		}
+
 		locale mylocale("");
-		salida_main.imbue(mylocale);
+		salida_fitness.imbue(mylocale);
+		salida_fitness << "Generacion | Fitness | Costo | Solucion | Suma Distancias | Fitness Prom " << endl;
 
 		for(int i=0; i<tb->pval_int("POP"); i++){
 			niches.push_back(new GeneticAlgorithm(tb->pval_int("N_CHROM"),"Niche_"+tb->int2string(i+1)));
@@ -76,10 +78,34 @@ int main(int argc , char **argv){
 					b_fitness = (*it_niches)->get_chrom_max_fitness()->getFitness();
 					paux_niches = it_niches;
 				}
-			salida_main << (i+1) << " | ";
-			(*paux_niches)->get_chrom_max_fitness()->show_solution(salida_main);
-			salida_main << endl;
+			salida_fitness << (i+1) << " | ";
+			(*paux_niches)->get_chrom_max_fitness()->show_solution(salida_fitness);
+//			salida_main << endl;
+//---------------------------Obtencion de individuos del patio---------------------------
+			list<Solution*> chrom_aux;
+			list<Solution*> chromosones;
+			list<Solution*>::iterator it_chrom;
+			list<Solution*>::iterator it_chrom2;
+			double fit = 0;
+			int distancias = 0;
+			for(it_niches = niches.begin(); it_niches != niches.end(); it_niches++){
+				chrom_aux = (*it_niches)->get_chromosones();
+				for(it_chrom = chrom_aux.begin(); it_chrom != chrom_aux.end(); it_chrom++){
+					chromosones.push_back(*it_chrom);
+				}
+			}
+//--------Calculo de la susma de distancias y suma de fitness de todos los individuos---------------
+			for(it_chrom = chromosones.begin(); it_chrom != chromosones.end(); it_chrom++){
+				fit += (*it_chrom)->getFitness();
+				for(it_chrom2 = chromosones.begin(); it_chrom2 != chromosones.end(); it_chrom2++){
+					distancias += (*it_chrom)->Distance((*it_chrom2));
+				}
+			}
+			double fitness_prom = fit/(tb->pval_int("POP")*tb->pval_int("N_CHROM"));
+			//===================Se agregan al archivo de salida======================================
+			salida_fitness << " | " << distancias << " | " << fitness_prom << endl;
 		}
+
 
 		ofstream resultado (("./Results/"+tb->pval_string("problemType")+"/"+ IDExp + "_results"+"("+buffer+")"+".dat").c_str(),ofstream::out);
 		if(resultado){
@@ -101,7 +127,7 @@ int main(int argc , char **argv){
 		time_t seconds(seg);
 		tm *pt = localtime(&seconds);
 		cout << "el tiempo de ejecucion ha sido de " << pt->tm_min << " min " << pt->tm_sec << "seg " << endl;
-		salida_main.close();
+		salida_fitness.close();
 		resultado.close();
 	}else{
 		//	cout << "Invocación: ./EJECUTABLE_TSP_PERM <Experiment_ID>" << endl;
