@@ -102,7 +102,7 @@ int main(int argc , char **argv){
 				}
 			}
 			double fitness_prom = fit/(tb->pval_int("POP")*tb->pval_int("N_CHROM"));
-			//===================Se agregan al archivo de salida======================================
+//===================Se agregan al archivo de salida======================================
 			salida_fitness << " | " << distancias << " | " << fitness_prom << endl;
 		}
 

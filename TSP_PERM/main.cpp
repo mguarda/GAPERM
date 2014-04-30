@@ -54,6 +54,7 @@ int main(int argc , char **argv){
 		}
 		locale mylocale("");
 		salida_fitness.imbue(mylocale);
+		salida_fitness << "Generacion | Fitness | Costo | Solucion | Suma Distancias | Fitness Prom " << endl;
 
 		for(int i=0; i<tb->pval_int("POP"); i++){
 			niches.push_back(new GeneticAlgorithm(tb->pval_int("N_CHROM"),"Niche_"+tb->int2string(i+1)));
